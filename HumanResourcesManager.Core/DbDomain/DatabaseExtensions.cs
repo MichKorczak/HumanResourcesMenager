@@ -9,10 +9,10 @@ namespace HumanResourcesManager.Core.DbDomain
 	{
 		public static void AddUserContext(this IServiceCollection services)
 		{
-			var DatabaseConnectionStrings = services.BuildServiceProvider().GetRequiredService<IOptions<ConnectionStringOptions>>()
+			var databaseConnectionStrings = services.BuildServiceProvider().GetRequiredService<IOptions<ConnectionStringOptions>>()
 				.Value;
 			services.AddDbContext<UserContext>(options =>
-						options.UseSqlServer(DatabaseConnectionStrings.ConnectionStrings));
+						options.UseSqlServer(databaseConnectionStrings.ConnectionStrings));
 		}
 	}
 }

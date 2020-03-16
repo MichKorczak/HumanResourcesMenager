@@ -17,19 +17,19 @@ namespace HumanResourcesManager.Api
 {
 	public class Startup
 	{
-		private readonly string ConnectionStringOptions = "ConnectionStringOptions";
-		public IConfiguration configuration { get; }
+		private const string ConnectionStringOptions = "ConnectionStringOptions";
+		public IConfiguration Configuration { get; }
 
 		public Startup(IConfiguration configuration)
 		{
-			this.configuration = configuration;
+			this.Configuration = configuration;
 		}
 		// This method gets called by the runtime. Use this method to add services to the container.
 		// For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddMvc(end => end.EnableEndpointRouting = false);
-			services.Configure<ConnectionStringOptions>(configuration.GetSection(ConnectionStringOptions));
+			services.Configure<ConnectionStringOptions>(Configuration.GetSection(ConnectionStringOptions));
 			services.AddUserContext();
 			services.AddScoped<IUserContext, UserContext>();
 			services.AddScoped<IBus, MediatrBus>();
