@@ -8,10 +8,10 @@ namespace HumanResourcesManager.Core.Enums
 	{
 		Developer,
 		Accountant,
-		Menager,
+		Manager,
 		Architect,
 		Tester,
-		TeamLider,
+		TeamLeader,
 		Director
 	}
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HumanResourcesManager.Core.Abstract
+namespace HumanResourcesManager.Core.Entities
 {
 	public abstract class Entity
 	{

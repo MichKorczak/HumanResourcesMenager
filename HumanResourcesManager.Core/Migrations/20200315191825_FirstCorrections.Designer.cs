@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HumanResourcesManager.Core.Migrations
 {
-    [DbContext(typeof(UserContext))]
+    [DbContext(typeof(HumanResourceContext))]
     [Migration("20200315191825_FirstCorrections")]
     partial class FirstCorrections
     {

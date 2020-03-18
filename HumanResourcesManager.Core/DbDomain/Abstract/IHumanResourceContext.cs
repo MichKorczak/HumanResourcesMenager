@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HumanResourcesManager.Core.DbDomain.Abstract
 {
-	public interface IUserContext
+	public interface IHumanResourceContext
 	{
 		DbSet<Employee> Employes { get; set; }
 	}

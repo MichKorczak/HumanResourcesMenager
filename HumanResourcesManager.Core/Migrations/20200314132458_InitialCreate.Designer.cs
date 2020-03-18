@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HumanResourcesMenager.Core.Migrations
 {
-    [DbContext(typeof(UserContext))]
+    [DbContext(typeof(HumanResourceContext))]
     [Migration("20200314132458_InitialCreate")]
     partial class InitialCreate
     {

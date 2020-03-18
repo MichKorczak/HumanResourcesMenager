@@ -1,9 +1,10 @@
 ﻿using HumanResourcesManager.Core.Enums;
 using System;
+using HumanResourcesManager.Core.Entities;
 
 namespace HumanResourcesManager.Core.Dto
 {
-	public class EmployeeDto
+	public class EmployeeDto : Entity
 	{
 		public string FirstName { get; set; }
 

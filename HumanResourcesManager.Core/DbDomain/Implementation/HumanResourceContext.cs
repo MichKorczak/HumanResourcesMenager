@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HumanResourcesManager.Core.DbDomain.Implementation
 {
-	public class UserContext : DbContext, IUserContext
+	public class HumanResourceContext : DbContext, IHumanResourceContext
 	{
-		public UserContext(DbContextOptions<UserContext> opt) : base(opt)
+		public HumanResourceContext(DbContextOptions<HumanResourceContext> options) : base(options)
 		{
 		}
 

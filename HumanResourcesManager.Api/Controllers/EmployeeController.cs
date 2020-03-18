@@ -2,17 +2,16 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using HumanResourcesManager.Api.Bus;
-using HumanResourcesManager.Core.DbDomain;
 
 namespace HumanResourcesManager.Api.Controllers
 {
-	[Route("api/employee")]
+	[Route("api/employees")]
 	[ApiController]
-	public class EmployeeController : Controller
+	public class EmployeesController : Controller
 	{
 		private readonly IBus bus;
 
-		public EmployeeController(IBus bus)
+		public EmployeesController(IBus bus)
 		{
 			this.bus = bus;
 		}
@@ -20,6 +19,5 @@ namespace HumanResourcesManager.Api.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Get() =>
 			Ok(await bus.SendAsync(new GetEmployeesQueryModel()));
-
 	}
 }

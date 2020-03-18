@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HumanResourcesManager.Core.Migrations
 {
-    [DbContext(typeof(UserContext))]
+    [DbContext(typeof(HumanResourceContext))]
     partial class UserContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

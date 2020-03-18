@@ -1,5 +1,4 @@
-﻿using HumanResourcesManager.Core.Abstract;
-using HumanResourcesManager.Core.Enums;
+﻿using HumanResourcesManager.Core.Enums;
 using System;
 
 namespace HumanResourcesManager.Core.Entities

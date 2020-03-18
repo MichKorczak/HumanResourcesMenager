@@ -4,9 +4,9 @@ using HumanResourcesManager.Core.Entities;
 
 namespace HumanResourcesManager.Infrastructure.Mapper
 {
-	class EmployeMapper : Profile
+	class EmployeeProfile : Profile
 	{
-		public EmployeMapper()
+		public EmployeeProfile()
 		{
 			CreateMap<Employee, EmployeeDto>();
 		}
