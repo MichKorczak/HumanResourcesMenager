@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace HumanResourcesManager.Infrastructure.Queries.Employee
 {
-	public class GetEmployeesQueryModel : IRequest<IList<EmployeeDto>>
+	public class GetEmployeesQueryModel : IRequest<IEnumerable<EmployeeDto>>
 	{
 	}
 }

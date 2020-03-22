@@ -10,6 +10,6 @@ namespace HumanResourcesManager.Core.DbDomain.Implementation
 		{
 		}
 
-		public DbSet<Employee> Employes { get; set; }
+		public DbSet<Employee> Employees { get; set; }
 	}
 }

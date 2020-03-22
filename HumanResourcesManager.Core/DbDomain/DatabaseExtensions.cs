@@ -8,7 +8,7 @@ namespace HumanResourcesManager.Core.DbDomain
 {
 	public static class DatabaseExtensions
 	{
-		public static void AddUserContext(this IServiceCollection services)
+		public static void AddContext(this IServiceCollection services)
 		{
 			var databaseSettings = services.BuildServiceProvider()
 				.GetRequiredService<IOptions<DatabaseSettings>>().Value;

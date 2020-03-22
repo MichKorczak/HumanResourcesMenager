@@ -1,8 +1,9 @@
 using AutoMapper;
 using HumanResourcesManager.Api.Bus;
 using HumanResourcesManager.Core.DbDomain;
-using HumanResourcesManager.Infrastructure.Repositories.Abstract;
-using HumanResourcesManager.Infrastructure.Repositories.Implementations;
+using HumanResourcesManager.Core.Repositories.Abstract;
+using HumanResourcesManager.Core.Repositories.Implementations;
+using HumanResourcesManager.Infrastructure.Registration.Modules;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,7 +17,9 @@ namespace HumanResourcesManager.Api
 	public class Startup
 	{
 		private const string DatabaseSettings = "DatabaseSettings";
+
 		public IConfiguration Configuration { get; }
+
 
 		public Startup(IConfiguration configuration)
 		{
@@ -27,15 +30,17 @@ namespace HumanResourcesManager.Api
 		{
 			services.AddMvc(end => end.EnableEndpointRouting = false);
 			services.Configure<DatabaseSettings>(Configuration.GetSection(DatabaseSettings));
-			services.AddUserContext();
+			services.AddContext();
 			services.AddScoped<IBus, MediatrBus>();
-			services.AddScoped<IGetEmployeesRepository, GetEmployeesRepository>();
-			services.AddMediatR(typeof(IGetEmployeesRepository), typeof(GetEmployeesRepository));
+			services.Registration();
+			services.AddMediatR(typeof(IEmployeesRepository), typeof(EmployeesRepository));
 			services.AddSwaggerGen(s =>
 			{
 				s.SwaggerDoc("v1", new OpenApiInfo { Title = "HR API", Version = "v1" });
 			});
 			services.AddAutoMapper(typeof(Startup));
+
+			
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

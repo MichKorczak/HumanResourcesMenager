@@ -5,6 +5,6 @@ namespace HumanResourcesManager.Core.DbDomain.Abstract
 {
 	public interface IHumanResourceContext
 	{
-		DbSet<Employee> Employes { get; set; }
+		DbSet<Employee> Employees { get; set; }
 	}
 }
