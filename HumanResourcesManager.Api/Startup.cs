@@ -3,6 +3,7 @@ using HumanResourcesManager.Api.Bus;
 using HumanResourcesManager.Core.DbDomain;
 using HumanResourcesManager.Core.Repositories.Abstract;
 using HumanResourcesManager.Core.Repositories.Implementations;
+using HumanResourcesManager.Infrastructure.Registration;
 using HumanResourcesManager.Infrastructure.Registration.Modules;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -31,9 +32,9 @@ namespace HumanResourcesManager.Api
 			services.AddMvc(end => end.EnableEndpointRouting = false);
 			services.Configure<DatabaseSettings>(Configuration.GetSection(DatabaseSettings));
 			services.AddContext();
+			services.AddMediatR(InfrastructureAssembly.Application);
 			services.AddScoped<IBus, MediatrBus>();
 			services.Registration();
-			services.AddMediatR(typeof(IEmployeesRepository), typeof(EmployeesRepository));
 			services.AddSwaggerGen(s =>
 			{
 				s.SwaggerDoc("v1", new OpenApiInfo { Title = "HR API", Version = "v1" });

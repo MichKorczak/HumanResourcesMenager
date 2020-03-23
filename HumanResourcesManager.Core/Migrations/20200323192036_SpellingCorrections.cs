@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HumanResourcesManager.Core.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class SpellingCorrections : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,7 @@ namespace HumanResourcesManager.Core.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
-                    LasttName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
                     Position = table.Column<int>(nullable: false),
                     RoomNumber = table.Column<int>(nullable: false),
                     DateOfBirth = table.Column<DateTime>(nullable: false),
@@ -21,7 +21,7 @@ namespace HumanResourcesManager.Core.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Employes", x => x.Id);
+                    table.PrimaryKey("PK_Employees", x => x.Id);
                 });
         }
 

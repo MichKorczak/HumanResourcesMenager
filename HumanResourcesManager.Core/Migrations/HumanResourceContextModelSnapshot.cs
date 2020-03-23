@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HumanResourcesManager.Core.Migrations
 {
     [DbContext(typeof(HumanResourceContext))]
-    partial class UserContextModelSnapshot : ModelSnapshot
+    partial class HumanResourceContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -45,7 +45,7 @@ namespace HumanResourcesManager.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Employes");
+                    b.ToTable("Employees");
                 });
 #pragma warning restore 612, 618
         }

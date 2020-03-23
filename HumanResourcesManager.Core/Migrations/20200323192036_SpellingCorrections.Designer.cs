@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HumanResourcesManager.Core.Migrations
 {
     [DbContext(typeof(HumanResourceContext))]
-    [Migration("20200315191825_FirstCorrections")]
-    partial class FirstCorrections
+    [Migration("20200323192036_SpellingCorrections")]
+    partial class SpellingCorrections
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -47,7 +47,7 @@ namespace HumanResourcesManager.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Employes");
+                    b.ToTable("Employees");
                 });
 #pragma warning restore 612, 618
         }
