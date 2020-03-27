@@ -4,6 +4,6 @@ namespace HumanResourcesManager.Infrastructure.Registration
 {
 	public class InfrastructureAssembly
 	{
-		public static  readonly Assembly Application = Assembly.GetExecutingAssembly();
+		public static readonly Assembly Application = Assembly.GetExecutingAssembly();
 	}
 }
