@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
+using System.Threading.Tasks;
+using AutoFixture.Xunit2;
+using FluentAssertions;
 using HumanResourcesManager.Core.Dto;
 using HumanResourcesManager.Core.Entities;
-using HumanResourcesManager.Core.Enums;
 using HumanResourcesManager.Core.Repositories.Abstract;
+using HumanResourcesManager.Infrastructure.Interfaces;
 using HumanResourcesManager.Infrastructure.Queries.Employee;
 using Moq;
 using Xunit;
@@ -14,65 +15,56 @@ namespace HumanResourcesManager.Infrastructure.Tests.Query.Handlers
 {
 	public class GetEmployeesQueryTests
 	{
-		private readonly Mock<IEmployeesRepository> repositorieMock;
+		private readonly Mock<IEmployeesRepository> employeeRepositoryMock;
 		private readonly Mock<IMapper> mapperMock;
-		private IEnumerable<Employee> employees;
-		private IEnumerable<EmployeeDto> employeesDto;
-		private readonly GetEmployeesQueryHandler getEmployees;
-		private readonly GetEmployeesQueryModel model;
+		private readonly GetEmployeesQueryHandler sut;
 
 		public GetEmployeesQueryTests()
 		{
-			repositorieMock = new Mock<IEmployeesRepository>();
+			employeeRepositoryMock = new Mock<IEmployeesRepository>();
 			mapperMock = new Mock<IMapper>();
-			getEmployees = new GetEmployeesQueryHandler(repositorieMock.Object, mapperMock.Object);
-			model = new GetEmployeesQueryModel();
+			//System under test
+			sut = new GetEmployeesQueryHandler(employeeRepositoryMock.Object, mapperMock.Object);
 		}
 
-		[Fact]
-		public void When_Full_List_Of_Employees_Is_Needed()
+		[Theory]
+		[AutoData]
+		public async Task When_Handling_Query_Then_Gets_Employee_From_Repository(GetEmployeesQueryModel model)
 		{
-			//Arrange 
-			employees = new Employee[]
-			{
-				new Employee() { Address = "Krakow", DateOfBirth = new DateTime(1990, 1, 10), FirstName = "Tomasz", LastName = "Kowalczyk", Position = JobPositions.Developer, RoomNumber = 100},
-				new Employee() { Address = "Krakow", DateOfBirth = new DateTime(1992, 1, 10), FirstName = "Daniel", LastName = "Kowalski", Position = JobPositions.Architect, RoomNumber = 101},
-				new Employee() { Address = "Krakow", DateOfBirth = new DateTime(1991, 1, 10), FirstName = "Szymon", LastName = "Maj", Position = JobPositions.Tester, RoomNumber = 102},
-				new Employee() { Address = "Krakow", DateOfBirth = new DateTime(1995, 1, 10), FirstName = "Aneta", LastName = "Baran", Position = JobPositions.Developer, RoomNumber = 100},
-				new Employee() { Address = "Krakow", DateOfBirth = new DateTime(1989, 1, 10), FirstName = "Aleksandra", LastName = "Szewczyk", Position = JobPositions.TeamLeader, RoomNumber = 103},
-			};
-			employeesDto = new EmployeeDto[]
-			{
-				new EmployeeDto() { Address = "Krakow", DateOfBirth = new DateTime(1990, 1, 10), FirstName = "Tomasz", LastName = "Kowalczyk", Position = JobPositions.Developer, RoomNumber = 100},
-				new EmployeeDto() { Address = "Krakow", DateOfBirth = new DateTime(1992, 1, 10), FirstName = "Daniel", LastName = "Kowalski", Position = JobPositions.Architect, RoomNumber = 101},
-				new EmployeeDto() { Address = "Krakow", DateOfBirth = new DateTime(1991, 1, 10), FirstName = "Szymon", LastName = "Maj", Position = JobPositions.Tester, RoomNumber = 102},
-				new EmployeeDto() { Address = "Krakow", DateOfBirth = new DateTime(1995, 1, 10), FirstName = "Aneta", LastName = "Baran", Position = JobPositions.Developer, RoomNumber = 100},
-				new EmployeeDto() { Address = "Krakow", DateOfBirth = new DateTime(1989, 1, 10), FirstName = "Aleksandra", LastName = "Szewczyk", Position = JobPositions.TeamLeader, RoomNumber = 103},
-			};
-			repositorieMock.Setup(x => x.GetEmployesAsync()).ReturnsAsync(employees);
-			mapperMock.Setup(s => s.Map<IEnumerable<EmployeeDto>>(It.IsAny<IEnumerable<Employee>>())).Returns(employeesDto);
-			
-			//Act
-			var employeesList = getEmployees.Handle(model, default);
+			// Act
+			await sut.Handle(model, default);
 
-			//Assert
-			Assert.Equal(employeesList.Result.Count(), employeesDto.Count());
+			// Assert
+			employeeRepositoryMock.Verify(x => x.GetEmployesAsync(), Times.Once);
 		}
 
-		[Fact]
-		public void When_Empty_List_Of_Employees_Is_Needed()
+		[Theory]
+		[AutoData]
+		public async Task When_Handling_Query_Then_Maps_Employees_To_EmployeeDtos(GetEmployeesQueryModel model, Employee[] employees)
 		{
-			//Arrange 
-			employees = new Employee[0];
-			employeesDto = new EmployeeDto[0];
-			repositorieMock.Setup(x => x.GetEmployesAsync()).ReturnsAsync(employees);
-			mapperMock.Setup(s => s.Map<IEnumerable<EmployeeDto>>(It.IsAny<IEnumerable<Employee>>())).Returns(employeesDto);
+			// Arrange 
+			employeeRepositoryMock.Setup(x => x.GetEmployesAsync()).ReturnsAsync(employees);
 
-			//Act
-			var employeesList = getEmployees.Handle(model, default);
+			// Act
+			await sut.Handle(model, default);
 
-			//Assert
-			Assert.Equal(employeesList.Result.Count(), employeesDto.Count());
+			// Assert
+			mapperMock.Verify(x => x.MapCollection<Employee, EmployeeDto>(employees), Times.Once);
+		}
+
+		[Theory]
+		[AutoData]
+		public async Task When_Handling_Query_Then_Returns_Mapped_EmployeeDtos(GetEmployeesQueryModel model, EmployeeDto[] employees)
+		{
+			// Arrange 
+			mapperMock.Setup(x => x.MapCollection<Employee, EmployeeDto>(It.IsAny<IEnumerable<Employee>>())).Returns(employees);
+
+			// Act
+			var result =  (await sut.Handle(model, default)).ToList();
+
+			// Assert
+			result.Should().NotBeNullOrEmpty();
+			result.Should().BeEquivalentTo<EmployeeDto>(employees);
 		}
 	}
 }

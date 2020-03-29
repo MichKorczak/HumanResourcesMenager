@@ -4,8 +4,10 @@ using HumanResourcesManager.Core.Entities;
 
 namespace HumanResourcesManager.Core.Dto
 {
-	public class EmployeeDto : Entity
+	public class EmployeeDto
 	{
+		public Guid Id { get; set; }		
+
 		public string FirstName { get; set; }
 
 		public string LastName { get; set; }

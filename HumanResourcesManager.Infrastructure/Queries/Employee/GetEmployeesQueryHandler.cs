@@ -1,10 +1,10 @@
-﻿using AutoMapper;
-using HumanResourcesManager.Core.Dto;
+﻿using HumanResourcesManager.Core.Dto;
 using MediatR;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using HumanResourcesManager.Core.Repositories.Abstract;
+using HumanResourcesManager.Infrastructure.Interfaces;
 
 namespace HumanResourcesManager.Infrastructure.Queries.Employee
 {
@@ -22,7 +22,7 @@ namespace HumanResourcesManager.Infrastructure.Queries.Employee
 		public async Task<IEnumerable<EmployeeDto>> Handle(GetEmployeesQueryModel request, CancellationToken cancellationToken)
 		{
 			var employeeList = await repository.GetEmployesAsync();
-			var employeeDto = mapper.Map<IEnumerable<EmployeeDto>>(employeeList);
+			var employeeDto = mapper.MapCollection<Core.Entities.Employee, EmployeeDto>(employeeList);
 			return employeeDto;
 		}
 	}

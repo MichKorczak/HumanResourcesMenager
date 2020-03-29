@@ -1,5 +1,6 @@
 ﻿using HumanResourcesManager.Core.Repositories.Abstract;
 using HumanResourcesManager.Core.Repositories.Implementations;
+using HumanResourcesManager.Infrastructure.Interfaces;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,6 +12,7 @@ namespace HumanResourcesManager.Infrastructure.Registration.Modules
 		{
 			services.AddMediatR(InfrastructureAssembly.Application);
 			services.AddScoped<IEmployeesRepository, EmployeesRepository>();
+			services.AddScoped<IMapper, Services.Mapper>();
 		}
 	}
 }
