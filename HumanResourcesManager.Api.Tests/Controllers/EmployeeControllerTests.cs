@@ -28,7 +28,7 @@ namespace HumanResourcesManager.Api.Tests.Controllers
 		public async Task When_Request_Came_Then_Return_Ok(EmployeeDto[] employees)
 		{
 			// Arrange
-			busMock.Setup(x => x.SendAsync(new GetEmployeesQueryModel(It.IsAny<IEnumerable<EmployeeDto>>()), default)).ReturnsAsync(employees);
+			busMock.Setup(x => x.SendAsync(new GetEmployeesQueryModel(), default)).ReturnsAsync(employees);
 			OkObjectResult okObject = new OkObjectResult(employees);
 
 			// Act

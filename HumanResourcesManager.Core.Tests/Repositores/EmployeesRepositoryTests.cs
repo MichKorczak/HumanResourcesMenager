@@ -1,13 +1,10 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoFixture.Xunit2;
 using FluentAssertions;
 using HumanResourcesManager.Core.DbDomain.Abstract;
 using HumanResourcesManager.Core.Entities;
-using HumanResourcesManager.Core.Repositories.Abstract;
 using HumanResourcesManager.Core.Repositories.Implementations;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 using Moq;
 using Xunit;
 
