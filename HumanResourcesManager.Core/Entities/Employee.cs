@@ -14,6 +14,8 @@ namespace HumanResourcesManager.Core.Entities
 
 		public string LastName { get; set; }
 
+		public bool Candidate { get; set; }
+
 		public JobPositions Position { get; set; }
 
 		public int RoomNumber { get; set; }

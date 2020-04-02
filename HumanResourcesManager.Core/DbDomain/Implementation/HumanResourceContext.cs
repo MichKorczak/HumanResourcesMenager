@@ -1,4 +1,5 @@
-﻿using HumanResourcesManager.Core.DbDomain.Abstract;
+﻿using System.Threading.Tasks;
+using HumanResourcesManager.Core.DbDomain.Abstract;
 using HumanResourcesManager.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,5 +12,7 @@ namespace HumanResourcesManager.Core.DbDomain.Implementation
 		}
 
 		public DbSet<Employee> Employees { get; set; }
+
+		public Task<bool> SaveAsync() => this.SaveAsync();
 	}
 }

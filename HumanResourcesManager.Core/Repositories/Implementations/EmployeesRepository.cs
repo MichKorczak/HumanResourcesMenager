@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using HumanResourcesManager.Core.DbDomain.Abstract;
 using HumanResourcesManager.Core.Entities;
@@ -17,5 +18,14 @@ namespace HumanResourcesManager.Core.Repositories.Implementations
 		}
 
 		public async Task<IEnumerable<Employee>> GetEmployesAsync() => await context.Employees.ToArrayAsync();
+
+		public async Task<Guid> AddEmployeeAsync(Employee employee)
+		{
+			await context.Employees.AddAsync(employee);
+			await context.SaveAsync();
+
+			return employee.Id;
+		} 
+
 	}
 }

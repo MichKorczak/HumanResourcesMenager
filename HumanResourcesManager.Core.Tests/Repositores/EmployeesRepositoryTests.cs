@@ -1,10 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using AutoFixture.Xunit2;
 using FluentAssertions;
 using HumanResourcesManager.Core.DbDomain.Abstract;
 using HumanResourcesManager.Core.Entities;
 using HumanResourcesManager.Core.Repositories.Implementations;
-using Microsoft.EntityFrameworkCore;
+using MockQueryable.Moq;
 using Moq;
 using Xunit;
 
@@ -23,17 +25,36 @@ namespace HumanResourcesManager.Core.Tests.Repositores
 
 		[Theory]
 		[AutoData]
-		public async Task When_Request_Come_Then_Return_Full_List_Of_Employee(DbSet<Employee> employees)
+		public async Task When_Request_Come_Then_Return_Full_List_Of_Employee(IEnumerable<Employee> employees)
 		{
 			// Arrange
-			contextMock.Setup(x => x.Employees).Returns(employees);
+			var mock = employees.AsQueryable().BuildMockDbSet();
+			contextMock.Setup(x => x.Employees).Returns(mock.Object);
 
 			// Act
 			var result = await sut.GetEmployesAsync();
 
 			// Assert
-			result.Should().BeEquivalentTo(employees);
+			var shouldBe = employees.AsEnumerable();
+			result.Should().BeEquivalentTo<Employee>(shouldBe);
+		}
 
+
+		[Theory]
+		[AutoData]
+		public async Task When_Request_Come_Then_Add_Employee_To_Context(IEnumerable<Employee> employees, Employee employee)
+		{
+			// Arrange
+			var mock = employees.AsQueryable().BuildMockDbSet();
+			contextMock.Setup(x => x.Employees).Returns(mock.Object);
+
+			// Act
+			var result = await sut.AddEmployeeAsync(employee);
+
+			// Assert
+			result.Should().Be(employee.Id);
 		}
 	}
+
+	
 }
