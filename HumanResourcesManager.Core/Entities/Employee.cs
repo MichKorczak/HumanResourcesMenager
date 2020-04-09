@@ -1,27 +1,33 @@
-﻿using HumanResourcesManager.Core.Enums;
-using System;
+﻿using System;
+using System.Collections.Generic;
 
 namespace HumanResourcesManager.Core.Entities
 {
 	public class Employee : Entity
 	{
-		public Employee()
+		public Employee(string firstName, string lastName, DateTime dateOfBirth, string address)
 		{
-			Id = Guid.NewGuid();
+			FirstName = firstName;
+			LastName = lastName;
+			DateOfBirth = dateOfBirth;
+			Address = address;
+			Positions = new List<EmployeeJobPosition>();
 		}
 
-		public string FirstName { get; set; }
+		public string FirstName { get; private set; }
 
-		public string LastName { get; set; }
+		public string LastName { get; private set; }
 
-		public bool Candidate { get; set; }
+		public List<EmployeeJobPosition> Positions { get; set; }
 
-		public JobPositions Position { get; set; }
+		public DateTime DateOfBirth { get; private set; }
+
+		public string Address { get; private set; }
 
 		public int RoomNumber { get; set; }
 
-		public DateTime DateOfBirth { get; set; }
+		public Employee ManagerEmployee { get; set; }
 
-		public string Address { get; set; }
+		public Guid ManagerId { get; set; }
 	}
 }

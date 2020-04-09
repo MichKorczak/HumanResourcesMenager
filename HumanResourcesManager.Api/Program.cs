@@ -15,7 +15,7 @@ namespace HumanResourcesManager.Api
 			Host.CreateDefaultBuilder(args)
 				.ConfigureWebHostDefaults(webBuilder =>
 				{
-					webBuilder.UseContentRoot(Directory.GetCurrentDirectory()).UseIISIntegration().UseStartup<Startup>();
+					webBuilder.UseStartup<Startup>();
 				});
 	}
 }

@@ -1,6 +1,4 @@
-﻿using HumanResourcesManager.Core.DbDomain.Abstract;
-using HumanResourcesManager.Core.DbDomain.Implementation;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
@@ -14,7 +12,6 @@ namespace HumanResourcesManager.Core.DbDomain
 				.GetRequiredService<IOptions<DatabaseSettings>>().Value;
 			services.AddDbContext<HumanResourceContext>(options =>
 						options.UseSqlServer(databaseSettings.ConnectionString));
-			services.AddScoped<IHumanResourceContext>(prov => prov.GetRequiredService<HumanResourceContext>());
 		}
 	}
 }

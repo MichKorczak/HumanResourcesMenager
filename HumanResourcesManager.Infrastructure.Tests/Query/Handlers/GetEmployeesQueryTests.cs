@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoFixture;
 using AutoFixture.Xunit2;
 using FluentAssertions;
 using HumanResourcesManager.Core.Dto;
@@ -18,6 +19,7 @@ namespace HumanResourcesManager.Infrastructure.Tests.Query.Handlers
 		private readonly Mock<IEmployeesRepository> employeeRepositoryMock;
 		private readonly Mock<IMapper> mapperMock;
 		private readonly GetEmployeesQueryHandler sut;
+		private readonly Fixture fixture;
 
 		public GetEmployeesQueryTests()
 		{
@@ -25,6 +27,7 @@ namespace HumanResourcesManager.Infrastructure.Tests.Query.Handlers
 			mapperMock = new Mock<IMapper>();
 			//System under test
 			sut = new GetEmployeesQueryHandler(employeeRepositoryMock.Object, mapperMock.Object);
+			fixture = new Fixture();
 		}
 
 		[Theory]
@@ -40,9 +43,11 @@ namespace HumanResourcesManager.Infrastructure.Tests.Query.Handlers
 
 		[Theory]
 		[AutoData]
-		public async Task When_Handling_Query_Then_Maps_Employees_To_EmployeeDtos(GetEmployeesQueryModel model, Employee[] employees)
+		public async Task When_Handling_Query_Then_Maps_Employees_To_EmployeeDtos(GetEmployeesQueryModel model)
 		{
 			// Arrange 
+			var employee = fixture.Build<Employee>().Without(x => x.Positions).Without(x => x.ManagerEmployee).Create();
+			var employees = new Employee[] { employee }; 
 			employeeRepositoryMock.Setup(x => x.GetEmployesAsync()).ReturnsAsync(employees);
 
 			// Act

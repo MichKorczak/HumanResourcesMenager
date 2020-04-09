@@ -12,7 +12,7 @@ namespace HumanResourcesManager.Core.Dto
 
 		public string LastName { get; set; }
 
-		public JobPositions Position { get; set; }
+		public string Position { get; set; }
 
 		public int RoomNumber { get; set; }
 

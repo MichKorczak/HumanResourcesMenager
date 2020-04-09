@@ -24,34 +24,54 @@ namespace HumanResourcesManager.Api.Tests.Controllers
 			sut = new EmployeesController(busMock.Object);
 		}
 
-		[Theory]
-		[AutoData]
-		public async Task When_Request_Came_Then_Return_Ok_Result_With_List(EmployeeDto[] employees)
+		[Fact]
+		public async Task When_Getting_Employee_Then_Sends_Get_Employee_Query_Model_With_Bus()
 		{
-			// Arrange
-			busMock.Setup(x => x.SendAsync(It.IsAny<GetEmployeesQueryModel>(), default)).ReturnsAsync(employees);
-			OkObjectResult okObject = new OkObjectResult(employees);
-
 			// Act
-			var response = (await sut.Get());
+			await sut.GetEmployeesAsync();
 
 			// Assert
-			response.Should().BeEquivalentTo<OkObjectResult>(okObject);
+			busMock.Verify(x => x.SendAsync(It.IsAny<GetEmployeesQueryModel>(), default), Times.Once);
 		}
 
 		[Theory]
 		[AutoData]
-		public async Task When_Request_Came_Then_Send_Command_To_Add_Employee(AddEmployeeCommandModel model, Guid id)
+		public async Task When_Getting_Employees_List_Then_Return_Ok_Result_With_List(EmployeeDto[] employees)
 		{
 			// Arrange
-			OkObjectResult okResult = new OkObjectResult(id);
-			busMock.Setup(x => x.SendAsync(It.IsAny<AddEmployeeCommandModel>(), default)).ReturnsAsync(id);
+			busMock.Setup(x => x.SendAsync(It.IsAny<GetEmployeesQueryModel>(), default)).ReturnsAsync(employees);
 
 			// Act
-			var response = (await sut.Post(model));
+			var response = await sut.GetEmployeesAsync();
 
 			// Assert
-			response.Should().BeEquivalentTo<OkObjectResult>(okResult);
+			response.Should().BeOfType<OkObjectResult>();
+			var objectResult = response.As<OkObjectResult>();
+			objectResult.Value.Should().BeOfType<EmployeeDto[]>();
+			var dtos = objectResult.Value.As<EmployeeDto[]>();
+			dtos.Should().BeEquivalentTo<EmployeeDto>(employees);
+		}
+
+		[Theory]
+		[AutoData]
+		public async Task When_Adding_Employee_Then_Call_Command_Add_Employee_Handler(AddEmployeeCommandModel model)
+		{
+			// Act
+			await sut.CreateEmployeesAsync(model);
+
+			// Assert
+			busMock.Verify(x => x.SendAsync(It.IsAny<AddEmployeeCommandModel>(), default), Times.Once);
+		}
+
+		[Theory]
+		[AutoData]
+		public async Task When_Adding_Employee_With_Complete_Object_Then_Response_Ok(AddEmployeeCommandModel model)
+		{ 
+			// Act
+			var response = (await sut.CreateEmployeesAsync(model));
+
+			// Assert
+			response.Should().BeOfType<AcceptedResult>();
 		}
 	}
 }

@@ -5,7 +5,7 @@ using HumanResourcesManager.Infrastructure.Commands.Employee;
 
 namespace HumanResourcesManager.Infrastructure.Mapper
 {
-	class EmployeeProfile : Profile
+	public class EmployeeProfile : Profile
 	{
 		public EmployeeProfile()
 		{

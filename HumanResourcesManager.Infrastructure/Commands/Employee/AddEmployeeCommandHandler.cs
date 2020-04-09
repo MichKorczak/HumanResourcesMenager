@@ -1,28 +1,26 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using HumanResourcesManager.Core.Repositories.Abstract;
-using HumanResourcesManager.Infrastructure.Interfaces;
 using MediatR;
 
 namespace HumanResourcesManager.Infrastructure.Commands.Employee
 {
-	public class AddEmployeeCommandHandler : IRequestHandler<AddEmployeeCommandModel, Guid>
+	public class AddEmployeeCommandHandler : IRequestHandler<AddEmployeeCommandModel>
 	{
-		private readonly IEmployeesRepository repository;
-		private readonly IMapper mapper;
+		private readonly IEmployeesRepository employeesRepository;
 
-		public AddEmployeeCommandHandler(IEmployeesRepository repository, IMapper mapper)
+		public AddEmployeeCommandHandler(IEmployeesRepository employeesRepository)
 		{
-			this.repository = repository;
-			this.mapper = mapper;
+			this.employeesRepository = employeesRepository;
 		}
 
-		public async Task<Guid> Handle(AddEmployeeCommandModel request, CancellationToken cancellationToken)
+
+		public async Task<Unit> Handle(AddEmployeeCommandModel request, CancellationToken cancellationToken)
 		{
-			var employee = mapper.Map<AddEmployeeCommandModel, Core.Entities.Employee>(request);
-			return await repository.AddEmployeeAsync(employee);
-			
+			var employee = new Core.Entities.Employee(request.FirstName, request.LastName, request.DateOfBirth, request.Address);
+			await employeesRepository.AddEmployeeAsync(employee);
+			await employeesRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
+			return Unit.Value;
 		}
 	}
 }

@@ -18,11 +18,17 @@ namespace HumanResourcesManager.Api.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Get() =>
-			Ok(await bus.SendAsync(new GetEmployeesQueryModel()));
+		public async Task<IActionResult> GetEmployeesAsync()
+		{
+			var result = await bus.SendAsync(new GetEmployeesQueryModel());
+			return Ok(result);
+		}
 
 		[HttpPost]
-		public async Task<IActionResult> Post(AddEmployeeCommandModel model) =>
-			Ok(await bus.SendAsync(model));
+		public async Task<IActionResult> CreateEmployeesAsync(AddEmployeeCommandModel model)
+		{
+			await bus.SendAsync(model);
+			return Accepted();
+		}
 	}
 }

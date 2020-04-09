@@ -1,31 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using HumanResourcesManager.Core.DbDomain.Abstract;
+using HumanResourcesManager.Core.DbDomain;
 using HumanResourcesManager.Core.Entities;
 using HumanResourcesManager.Core.Repositories.Abstract;
 using Microsoft.EntityFrameworkCore;
 
 namespace HumanResourcesManager.Core.Repositories.Implementations
 {
-	public class EmployeesRepository : IEmployeesRepository
+	public class EmployeesRepository : Repository, IEmployeesRepository
 	{
-		private readonly IHumanResourceContext context;
+		private readonly HumanResourceContext context;
 
-		public EmployeesRepository(IHumanResourceContext context)
+		public EmployeesRepository(HumanResourceContext context) 
+			: base(context)
 		{
 			this.context = context;
 		}
 
 		public async Task<IEnumerable<Employee>> GetEmployesAsync() => await context.Employees.ToArrayAsync();
 
-		public async Task<Guid> AddEmployeeAsync(Employee employee)
-		{
-			await context.Employees.AddAsync(employee);
-			await context.SaveAsync();
-
-			return employee.Id;
-		} 
-
+		public async Task AddEmployeeAsync(Employee employee) => await context.Employees.AddAsync(employee);
 	}
 }

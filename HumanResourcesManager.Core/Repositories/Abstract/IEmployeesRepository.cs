@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using HumanResourcesManager.Core.Entities;
 
 namespace HumanResourcesManager.Core.Repositories.Abstract
 {
-	public interface IEmployeesRepository
+	public interface IEmployeesRepository : IRepository
 	{
 		Task<IEnumerable<Employee>> GetEmployesAsync();
 
-		Task<Guid> AddEmployeeAsync(Employee employee);
+		Task AddEmployeeAsync(Employee employee);
 	}
 }

@@ -4,7 +4,7 @@ namespace HumanResourcesManager.Core.Entities
 {
     public class User : Entity
 	{
-        public string UserName { get; set; }
+		public string UserName { get; set; }
 
         public string Email { get; set; }
 
@@ -17,5 +17,9 @@ namespace HumanResourcesManager.Core.Entities
         public string ChangePasswordToken { get; set; }
 
         public string RefreshToken { get; set; }
+
+        public Employee Employee { get; set; }
+
+        public Guid EmployeeId { get; set; }
     }
 }
