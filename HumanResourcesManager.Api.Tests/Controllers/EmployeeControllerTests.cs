@@ -54,7 +54,7 @@ namespace HumanResourcesManager.Api.Tests.Controllers
 
 		[Theory]
 		[AutoData]
-		public async Task When_Adding_Employee_Then_Call_Command_Add_Employee_Handler(AddEmployeeCommandModel model)
+		public async Task When_Adding_Employee_Then_Sends_Command_Add_Employee_Handler(AddEmployeeCommandModel model)
 		{
 			// Act
 			await sut.CreateEmployeesAsync(model);
@@ -65,7 +65,7 @@ namespace HumanResourcesManager.Api.Tests.Controllers
 
 		[Theory]
 		[AutoData]
-		public async Task When_Adding_Employee_With_Complete_Object_Then_Response_Ok(AddEmployeeCommandModel model)
+		public async Task When_Adding_Employee_With_Complete_Object_Then_Response_Accepted(AddEmployeeCommandModel model)
 		{ 
 			// Act
 			var response = (await sut.CreateEmployeesAsync(model));
