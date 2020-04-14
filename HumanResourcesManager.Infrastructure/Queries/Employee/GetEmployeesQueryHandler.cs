@@ -21,7 +21,7 @@ namespace HumanResourcesManager.Infrastructure.Queries.Employee
 
 		public async Task<IEnumerable<EmployeeDto>> Handle(GetEmployeesQueryModel request, CancellationToken cancellationToken)
 		{
-			var employeeList = await repository.GetEmployesAsync();
+			var employeeList = await repository.GetEmployeesAsync();
 			var employeeDto = mapper.MapCollection<Core.Entities.Employee, EmployeeDto>(employeeList);
 			return employeeDto;
 		}

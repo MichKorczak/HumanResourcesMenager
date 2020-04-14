@@ -1,4 +1,4 @@
-﻿namespace HumanResourcesManager.Core.DbDomain
+﻿namespace HumanResourcesManager.Core.Settings
 {
 	public class DatabaseSettings
 	{ 

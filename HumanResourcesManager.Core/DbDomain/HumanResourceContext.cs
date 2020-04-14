@@ -14,5 +14,6 @@ namespace HumanResourcesManager.Core.DbDomain
 		}
 
 		public DbSet<Employee> Employees { get; set; }
+		public DbSet<User> Users { get; set; }
 	}
 }

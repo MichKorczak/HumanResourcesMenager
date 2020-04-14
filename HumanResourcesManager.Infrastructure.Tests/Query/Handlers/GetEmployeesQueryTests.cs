@@ -38,7 +38,7 @@ namespace HumanResourcesManager.Infrastructure.Tests.Query.Handlers
 			await sut.Handle(model, default);
 
 			// Assert
-			employeeRepositoryMock.Verify(x => x.GetEmployesAsync(), Times.Once);
+			employeeRepositoryMock.Verify(x => x.GetEmployeesAsync(), Times.Once);
 		}
 
 		[Theory]
@@ -48,7 +48,7 @@ namespace HumanResourcesManager.Infrastructure.Tests.Query.Handlers
 			// Arrange 
 			var employee = fixture.Build<Employee>().Without(x => x.Positions).Without(x => x.ManagerEmployee).Create();
 			var employees = new Employee[] { employee }; 
-			employeeRepositoryMock.Setup(x => x.GetEmployesAsync()).ReturnsAsync(employees);
+			employeeRepositoryMock.Setup(x => x.GetEmployeesAsync()).ReturnsAsync(employees);
 
 			// Act
 			await sut.Handle(model, default);

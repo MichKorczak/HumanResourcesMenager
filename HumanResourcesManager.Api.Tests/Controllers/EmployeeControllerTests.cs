@@ -68,7 +68,7 @@ namespace HumanResourcesManager.Api.Tests.Controllers
 		public async Task When_Adding_Employee_With_Complete_Object_Then_Response_Accepted(AddEmployeeCommandModel model)
 		{ 
 			// Act
-			var response = (await sut.CreateEmployeesAsync(model));
+			var response = await sut.CreateEmployeesAsync(model);
 
 			// Assert
 			response.Should().BeOfType<AcceptedResult>();

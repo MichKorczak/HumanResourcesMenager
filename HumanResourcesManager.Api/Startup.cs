@@ -1,6 +1,8 @@
 using AutoMapper;
 using HumanResourcesManager.Api.Bus;
 using HumanResourcesManager.Core.DbDomain;
+using HumanResourcesManager.Core.Settings;
+using HumanResourcesManager.Infrastructure.Registration.Authorization;
 using HumanResourcesManager.Infrastructure.Registration.Modules;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -17,7 +19,6 @@ namespace HumanResourcesManager.Api
 
 		public IConfiguration Configuration { get; }
 
-
 		public Startup(IConfiguration configuration)
 		{
 			this.Configuration = configuration;
@@ -28,6 +29,7 @@ namespace HumanResourcesManager.Api
 			services.AddMvc(end => end.EnableEndpointRouting = false);
 			services.Configure<DatabaseSettings>(Configuration.GetSection(DatabaseSettings));
 			services.AddContext();
+			services.AddJwtAuth(Configuration);
 			services.AddScoped<IBus, MediatrBus>();
 			services.RegisterRepositories();
 			services.AddSwaggerGen(s =>
@@ -48,6 +50,8 @@ namespace HumanResourcesManager.Api
 				});
 				app.UseDeveloperExceptionPage();
 			}
+
+			app.UseAuthentication();
 			app.UseStaticFiles();
 			app.UseMvc();
 		}
