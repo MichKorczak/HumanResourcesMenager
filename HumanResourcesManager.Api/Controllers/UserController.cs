@@ -16,6 +16,7 @@ namespace HumanResourcesManager.Api.Controllers
 			this.bus = bus;
 		}
 
+		[HttpPost]
 		public async Task<IActionResult> Registration(RegistrationCommandModel model)
 		{
 			await bus.SendAsync(model);

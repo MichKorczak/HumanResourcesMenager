@@ -2,6 +2,7 @@
 using AutoFixture.Xunit2;
 using FluentAssertions;
 using HumanResourcesManager.Core.Entities;
+using HumanResourcesManager.Core.Exceptions;
 using HumanResourcesManager.Core.Repositories.Abstract;
 using HumanResourcesManager.Infrastructure.Commands.Employee;
 using MediatR;
@@ -20,7 +21,7 @@ namespace HumanResourcesManager.Infrastructure.Tests.Commands.Handlers
 		{
 			unitOfWorkMock = new Mock<IUnitOfWork>();
 			employeeRepositoryMock = new Mock<IEmployeesRepository>();
-			unitOfWorkMock.Setup(x => x.SaveChangesAsync(default));
+			unitOfWorkMock.Setup(x => x.SaveChangesAsync(default)).ReturnsAsync(1);
 			employeeRepositoryMock.Setup(x => x.UnitOfWork).Returns(unitOfWorkMock.Object);
 			sut = new AddEmployeeCommandHandler(employeeRepositoryMock.Object);
 		}
@@ -59,6 +60,21 @@ namespace HumanResourcesManager.Infrastructure.Tests.Commands.Handlers
 
 			// Assert
 			result.Should().BeOfType<Unit>();
+		}
+
+		[Theory]
+		[AutoData]
+		public async Task When_Handling_Add_Employee_Command_And_Cannot_Save_Then_Throw_Exception(AddEmployeeCommandModel model)
+		{
+			// Arrange
+			unitOfWorkMock.Setup(x => x.SaveChangesAsync(default)).ReturnsAsync(0);
+
+			// Act
+			var ex = await Assert.ThrowsAsync<ManagerException>(() => sut.Handle(model, default));
+
+			// Assert
+			ex.Should().BeOfType<ManagerException>();
+			ex.Message.Should().Be("Cannot create new user before register employee.");
 		}
 	}
 }

@@ -1,5 +1,6 @@
 using AutoMapper;
 using HumanResourcesManager.Api.Bus;
+using HumanResourcesManager.Api.Infrastructure;
 using HumanResourcesManager.Core.DbDomain;
 using HumanResourcesManager.Core.Settings;
 using HumanResourcesManager.Infrastructure.Registration.Authorization;
@@ -50,6 +51,7 @@ namespace HumanResourcesManager.Api
 				});
 				app.UseDeveloperExceptionPage();
 			}
+			app.UseMiddleware<CustomExceptionAttribute>();
 
 			app.UseAuthentication();
 			app.UseStaticFiles();

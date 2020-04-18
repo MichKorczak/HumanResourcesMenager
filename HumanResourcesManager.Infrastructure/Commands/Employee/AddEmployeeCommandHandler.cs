@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using HumanResourcesManager.Core.Exceptions;
 using HumanResourcesManager.Core.Repositories.Abstract;
 using MediatR;
 
@@ -19,7 +20,11 @@ namespace HumanResourcesManager.Infrastructure.Commands.Employee
 		{
 			var employee = new Core.Entities.Employee(request.FirstName, request.LastName, request.DateOfBirth, request.Address);
 			await employeesRepository.AddEmployeeAsync(employee);
-			await employeesRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
+			if (await employeesRepository.UnitOfWork.SaveChangesAsync(cancellationToken) < 1)
+			{
+				throw new ManagerException(ErrorsMessage.ContentSaveError);
+			}
+
 			return Unit.Value;
 		}
 	}

@@ -4,6 +4,7 @@ using AutoFixture;
 using AutoFixture.Xunit2;
 using FluentAssertions;
 using HumanResourcesManager.Core.Entities;
+using HumanResourcesManager.Core.Exceptions;
 using HumanResourcesManager.Core.Repositories.Abstract;
 using HumanResourcesManager.Infrastructure.Commands.User;
 using HumanResourcesManager.Infrastructure.Managers.Abstract;
@@ -29,6 +30,7 @@ namespace HumanResourcesManager.Infrastructure.Tests.Commands.Handlers
 			passwordMock = new Mock<IPasswordEncrypt>();
 			unitOfWorkMock = new Mock<IUnitOfWork>();
 			userRepoMock.Setup(x => x.UnitOfWork).Returns(unitOfWorkMock.Object);
+			unitOfWorkMock.Setup(x => x.SaveChangesAsync(default)).ReturnsAsync(1);
 			sut = new RegistrationCommandHandler(userRepoMock.Object, emploRepoMock.Object, passwordMock.Object);
 			fixture = new Fixture();
 			var employee = fixture.Build<Employee>().Without(x => x.Positions).Without(x => x.ManagerEmployee).Create();
@@ -55,11 +57,11 @@ namespace HumanResourcesManager.Infrastructure.Tests.Commands.Handlers
 			emploRepoMock.Setup(x => x.GetEmployeeAsync(It.IsAny<Guid>())).ReturnsAsync(employee);
 
 			// Act
-			var ex = await Assert.ThrowsAsync<Exception>(() => sut.Handle(model, default));
+			var ex = await Assert.ThrowsAsync<ManagerException>(() => sut.Handle(model, default));
 
 			// Assert
-			ex.Should().BeOfType<Exception>();
-			ex.Message.Should().Be("Cannot create new user before register employee");
+			ex.Should().BeOfType<ManagerException>();
+			ex.Message.Should().Be("Cannot create new user before register employee.");
 		}
 
 		[Theory]
