@@ -15,15 +15,19 @@ namespace HumanResourcesManager.Infrastructure.Tests.Commands.Handlers
 	{
 		private readonly Mock<IUnitOfWork> unitOfWorkMock;
 		private readonly Mock<IEmployeesRepository> employeeRepositoryMock;
+		private readonly Mock<IJobPositionRepository> jobRepositoryMock;
+		private readonly Mock<IEmployeeJPRepository> employeeJpRepositoryMock;
 		private readonly AddEmployeeCommandHandler sut;
 
 		public AddEmployeeCommandHandlerTests()
 		{
 			unitOfWorkMock = new Mock<IUnitOfWork>();
 			employeeRepositoryMock = new Mock<IEmployeesRepository>();
+			jobRepositoryMock = new Mock<IJobPositionRepository>();
+			employeeJpRepositoryMock = new Mock<IEmployeeJPRepository>();
 			unitOfWorkMock.Setup(x => x.SaveChangesAsync(default)).ReturnsAsync(1);
 			employeeRepositoryMock.Setup(x => x.UnitOfWork).Returns(unitOfWorkMock.Object);
-			sut = new AddEmployeeCommandHandler(employeeRepositoryMock.Object);
+			sut = new AddEmployeeCommandHandler(employeeRepositoryMock.Object, jobRepositoryMock.Object, employeeJpRepositoryMock.Object);
 		}
 
 		[Theory]

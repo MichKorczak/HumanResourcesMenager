@@ -1,12 +1,14 @@
-﻿using HumanResourcesManager.Infrastructure.Queries.Employee;
+﻿using System;
+using HumanResourcesManager.Infrastructure.Queries.Employee;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using HumanResourcesManager.Api.Bus;
 using HumanResourcesManager.Infrastructure.Commands.Employee;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HumanResourcesManager.Api.Controllers
 {
-	[Route("api/employees")]
+	[Route("api/employee")]
 	[ApiController]
 	public class EmployeesController : Controller
 	{
@@ -21,6 +23,14 @@ namespace HumanResourcesManager.Api.Controllers
 		public async Task<IActionResult> GetEmployeesAsync()
 		{
 			var result = await bus.SendAsync(new GetEmployeesQueryModel());
+			return Ok(result);
+		}
+
+		[HttpGet("{id}")]
+		[Authorize]
+		public async Task<IActionResult> GetEmployeeAsync(Guid id)
+		{
+			var result = await bus.SendAsync(new GetEmployeeQueryModel(id));
 			return Ok(result);
 		}
 

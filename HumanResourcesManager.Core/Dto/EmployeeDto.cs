@@ -1,6 +1,4 @@
-﻿using HumanResourcesManager.Core.Enums;
-using System;
-using HumanResourcesManager.Core.Entities;
+﻿using System;
 
 namespace HumanResourcesManager.Core.Dto
 {

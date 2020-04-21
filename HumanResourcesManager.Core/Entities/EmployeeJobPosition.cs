@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace HumanResourcesManager.Core.Entities
+﻿namespace HumanResourcesManager.Core.Entities
 {
 	public class EmployeeJobPosition : Entity
 	{
@@ -12,7 +10,6 @@ namespace HumanResourcesManager.Core.Entities
 			Employee = employee;
 		}
 
-		
 		public JobPosition Position { get; private set; }
 
 		public Employee Employee { get; private set; }

@@ -13,6 +13,9 @@ namespace HumanResourcesManager.Infrastructure.Commands.Employee
 		public string LastName { get; set; }
 
 		[Required]
+		public string Position { get; set; }
+
+		[Required]
 		public DateTime DateOfBirth { get; set; }
 
 		[Required]

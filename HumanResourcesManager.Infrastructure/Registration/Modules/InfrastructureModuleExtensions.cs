@@ -16,6 +16,8 @@ namespace HumanResourcesManager.Infrastructure.Registration.Modules
 			services.AddScoped<ITokenManager, TokenManager>();
 			services.AddScoped<IEmployeesRepository, EmployeesRepository>();
 			services.AddScoped<IUserRepository, UserRepository>();
+			services.AddScoped<IJobPositionRepository, JobPositionRepository>();
+			services.AddScoped<IEmployeeJPRepository, EmployeeJPRepository>();
 			services.AddScoped<IMapper, Services.Mapper>();
 			services.AddScoped<IPasswordEncrypt, PasswordEncrypt>();
 		}
