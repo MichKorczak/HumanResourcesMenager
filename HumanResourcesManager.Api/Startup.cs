@@ -16,8 +16,6 @@ namespace HumanResourcesManager.Api
 {
 	public class Startup
 	{
-		private const string DatabaseSettings = "DatabaseSettings";
-
 		public IConfiguration Configuration { get; }
 
 		public Startup(IConfiguration configuration)
@@ -28,7 +26,7 @@ namespace HumanResourcesManager.Api
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddMvc(end => end.EnableEndpointRouting = false);
-			services.Configure<DatabaseSettings>(Configuration.GetSection(DatabaseSettings));
+			services.AddSettingsApplication(Configuration);
 			services.AddContext();
 			services.AddJwtAuth(Configuration);
 			services.AddScoped<IBus, MediatrBus>();

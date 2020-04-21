@@ -4,7 +4,7 @@ namespace HumanResourcesManager.Core.Entities
 {
     public class User : Entity
 	{
-		public User(string userName, string email, DateTime creationDateTime, byte[] salt, byte[] passwordHash, Guid employeeId)
+		public User(string userName, string email, DateTime creationDateTime, byte[] salt, byte[] passwordHash, Guid employeeId, string mainRole)
 		{
 			UserName = userName;
 			Email = email;
@@ -12,6 +12,7 @@ namespace HumanResourcesManager.Core.Entities
 			Salt = salt;
 			PasswordHash = passwordHash;
 			EmployeeId = employeeId;
+			MainRole = mainRole;
 		}
         
 		public string UserName { get; private set; }
@@ -26,7 +27,9 @@ namespace HumanResourcesManager.Core.Entities
 
         public string ChangePasswordToken { get; set; }
 
-        public string RefreshToken { get; set; }
+		public string MainRole { get; set; }
+
+		public string RefreshToken { get; set; }
 
         public Employee Employee { get; set; }
 

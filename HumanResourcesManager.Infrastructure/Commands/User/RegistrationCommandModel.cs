@@ -12,8 +12,11 @@ namespace HumanResourcesManager.Infrastructure.Commands.User
 		[Required]
 		public string Email { get; set; }
 
-		[Required] 
+		[Required]
+		[MinLength(6)]
 		public string Password { get; set; }
+
+		public string Role { get; set; }
 
 		[Required] 
 		public Guid EmployeeId { get; set; }

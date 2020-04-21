@@ -13,6 +13,7 @@ namespace HumanResourcesManager.Infrastructure.Registration.Modules
 		public static void RegisterRepositories(this IServiceCollection services)
 		{
 			services.AddMediatR(InfrastructureAssembly.Application);
+			services.AddScoped<ITokenManager, TokenManager>();
 			services.AddScoped<IEmployeesRepository, EmployeesRepository>();
 			services.AddScoped<IUserRepository, UserRepository>();
 			services.AddScoped<IMapper, Services.Mapper>();

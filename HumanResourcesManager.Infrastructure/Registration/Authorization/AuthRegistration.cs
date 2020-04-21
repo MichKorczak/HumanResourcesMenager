@@ -12,7 +12,7 @@ namespace HumanResourcesManager.Infrastructure.Registration.Authorization
 	{
 		public static void AddJwtAuth(this IServiceCollection services, IConfiguration configuration)
 		{
-			var appSettingsSection = configuration.GetSection("AppSettings");
+			var appSettingsSection = configuration.GetSection("AuthSettings");
 			services.Configure<JwtSettings>(appSettingsSection);
 
 			var appSettings = appSettingsSection.Get<JwtSettings>();
