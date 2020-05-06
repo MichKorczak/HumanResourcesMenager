@@ -28,8 +28,7 @@ namespace HumanResourcesManager.Infrastructure.Commands.Employee
 
 			if (jobPosition == null)
 			{
-				var jobPositionModel = new JobPosition(request.Position);
-				await positionRepository.AddJobPositionAsync(jobPositionModel);
+				throw new ManagerException(ErrorsMessage.JobPositionDoesNotExist);
 			}
 
 			var employeeJobPositionModel = new EmployeeJobPosition(jobPosition, employee);
@@ -39,12 +38,7 @@ namespace HumanResourcesManager.Infrastructure.Commands.Employee
 			employee.Positions.Add(employeeJobPositionModel);
 
 			await employeesRepository.AddEmployeeAsync(employee);
-			if (await employeesRepository.UnitOfWork.SaveChangesAsync(cancellationToken) < 1 
-			    || await positionRepository.UnitOfWork.SaveChangesAsync(cancellationToken) < 1 
-			    || await employeeJpRepository.UnitOfWork.SaveChangesAsync(cancellationToken) < 1)
-			{
-				throw new ManagerException(ErrorsMessage.ContentSaveError);
-			}
+			await employeesRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
 
 			return Unit.Value;
 		}

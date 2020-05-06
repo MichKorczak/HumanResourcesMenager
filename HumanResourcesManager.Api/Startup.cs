@@ -2,7 +2,7 @@ using AutoMapper;
 using HumanResourcesManager.Api.Bus;
 using HumanResourcesManager.Api.Infrastructure;
 using HumanResourcesManager.Core.DbDomain;
-using HumanResourcesManager.Core.Settings;
+using HumanResourcesManager.Infrastructure.Registration;
 using HumanResourcesManager.Infrastructure.Registration.Authorization;
 using HumanResourcesManager.Infrastructure.Registration.Modules;
 using Microsoft.AspNetCore.Builder;
@@ -35,7 +35,7 @@ namespace HumanResourcesManager.Api
 			{
 				s.SwaggerDoc("v1", new OpenApiInfo { Title = "HR API", Version = "v1" });
 			});
-			services.AddAutoMapper(typeof(Startup));
+			services.AddAutoMapper(InfrastructureAssembly.Application);
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
