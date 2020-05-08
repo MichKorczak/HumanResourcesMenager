@@ -31,7 +31,7 @@ namespace HumanResourcesManager.Infrastructure.Commands.User
 
 			encrypt.PasswordHash(request.Password, out var salt, out var passwordHash);
 
-			Core.Entities.User user = new Core.Entities.User( request.UserName, request.Email, DateTime.Now, salt, passwordHash, request.EmployeeId, request.Role ) { Employee = employee };
+			Core.Entities.User user = new Core.Entities.User(request.UserName, request.Email, DateTime.Now, salt, passwordHash, request.EmployeeId, request.Role) { Employee = employee };
 
 			await userRepository.RegistrationAsync(user);
 

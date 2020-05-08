@@ -4,9 +4,9 @@ namespace HumanResourcesManager.Core.Dto
 {
 	public class TokenModel
 	{
-		public TokenModel(Guid UserId, string token, DateTime expireTime, string role)
+		public TokenModel(Guid userId, string token, DateTime expireTime, string role)
 		{
-			this.UserId = UserId;
+			UserId = userId;
 			Token = token;
 			ExpireTime = expireTime;
 			Role = role;

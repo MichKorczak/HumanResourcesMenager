@@ -17,14 +17,14 @@ namespace HumanResourcesManager.Api.Controllers
 			this.bus = bus;
 		}
 
-		[HttpPost]
+		[HttpPost("registration")]
 		public async Task<IActionResult> Registration(RegistrationCommandModel model)
 		{
 			await bus.SendAsync(model);
 			return Accepted();
 		}
 
-		[HttpPost("Login")]
+		[HttpPost("login")]
 		public async Task<IActionResult> Login(LoginQueryModel model)
 		{
 			var response = await bus.SendAsync(model);

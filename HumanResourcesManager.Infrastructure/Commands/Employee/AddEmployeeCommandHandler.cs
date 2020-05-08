@@ -20,7 +20,6 @@ namespace HumanResourcesManager.Infrastructure.Commands.Employee
 			this.employeeJpRepository = employeeJpRepository;
 		}
 
-
 		public async Task<Unit> Handle(AddEmployeeCommandModel request, CancellationToken cancellationToken)
 		{
 			var employee = new Core.Entities.Employee(request.FirstName, request.LastName, request.DateOfBirth, request.Address);

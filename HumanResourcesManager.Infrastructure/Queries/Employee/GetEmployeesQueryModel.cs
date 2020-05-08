@@ -1,6 +1,6 @@
-﻿using HumanResourcesManager.Core.Dto;
+﻿using System.Collections.Generic;
+using HumanResourcesManager.Core.Dto;
 using MediatR;
-using System.Collections.Generic;
 
 namespace HumanResourcesManager.Infrastructure.Queries.Employee
 {

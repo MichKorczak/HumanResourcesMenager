@@ -27,14 +27,14 @@ namespace HumanResourcesManager.Infrastructure.Managers.Implementations
 
 			var claims = new Claim[]
 			{
-				new Claim(JwtRegisteredClaimNames.UniqueName, userId.ToString()), 
-				new Claim(JwtRegisteredClaimNames.Sub, email), 
-				new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()), 
+				new Claim(JwtRegisteredClaimNames.UniqueName, userId.ToString()),
+				new Claim(JwtRegisteredClaimNames.Sub, email),
+				new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
 				new Claim(ClaimTypes.Role, role)
 			};
 
 			var signCredential = new SigningCredentials(
-				new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.SecretKey)), 
+				new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.SecretKey)),
 				SecurityAlgorithms.HmacSha256);
 
 			var expires = date.AddMinutes(options.ExpiresMinutes);
@@ -47,8 +47,7 @@ namespace HumanResourcesManager.Infrastructure.Managers.Implementations
 				signingCredentials: signCredential);
 
 			var token = new JwtSecurityTokenHandler().WriteToken(jwt);
-			
-			return new TokenModel(userId, token, expires, role); 
+			return new TokenModel(userId, token, expires, role);
 		}
 	}
 }

@@ -14,25 +14,25 @@ namespace HumanResourcesManager.Core.Entities
 			EmployeeId = employeeId;
 			MainRole = mainRole;
 		}
-        
+
 		public string UserName { get; private set; }
 
-        public string Email { get; private set; }
+		public string Email { get; private set; }
 
-        public byte[] PasswordHash { get; private set; }
+		public byte[] PasswordHash { get; private set; }
 
-        public byte[] Salt { get; private set; }
+		public byte[] Salt { get; private set; }
 
-        public DateTime CreationDateTime { get; private set; }
+		public DateTime CreationDateTime { get; private set; }
 
-        public string ChangePasswordToken { get; set; }
+		public Guid EmployeeId { get; private set; }
+
+		public string ChangePasswordToken { get; set; }
 
 		public string MainRole { get; set; }
 
 		public string RefreshToken { get; set; }
 
-        public Employee Employee { get; set; }
-
-        public Guid EmployeeId { get; private set; }
-    }
+		public Employee Employee { get; set; }
+	}
 }

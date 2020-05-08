@@ -1,4 +1,4 @@
-using AutoMapper;
+﻿using AutoMapper;
 using HumanResourcesManager.Api.Bus;
 using HumanResourcesManager.Api.Infrastructure;
 using HumanResourcesManager.Core.DbDomain;
@@ -16,13 +16,13 @@ namespace HumanResourcesManager.Api
 {
 	public class Startup
 	{
-		public IConfiguration Configuration { get; }
-
 		public Startup(IConfiguration configuration)
 		{
 			this.Configuration = configuration;
 		}
-		
+
+		public IConfiguration Configuration { get; }
+
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddMvc(end => end.EnableEndpointRouting = false);
@@ -43,12 +43,13 @@ namespace HumanResourcesManager.Api
 			if (env.IsDevelopment())
 			{
 				app.UseSwagger();
-				app.UseSwaggerUI(u => 
+				app.UseSwaggerUI(u =>
 				{
 					u.SwaggerEndpoint("/swagger/v1/swagger.json", "HR API");
 				});
 				app.UseDeveloperExceptionPage();
 			}
+
 			app.UseMiddleware<CustomExceptionAttribute>();
 
 			app.UseAuthentication();

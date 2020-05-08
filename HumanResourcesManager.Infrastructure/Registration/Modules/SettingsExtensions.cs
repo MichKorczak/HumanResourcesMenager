@@ -1,5 +1,4 @@
-﻿
-using HumanResourcesManager.Core.Settings;
+﻿using HumanResourcesManager.Core.Settings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

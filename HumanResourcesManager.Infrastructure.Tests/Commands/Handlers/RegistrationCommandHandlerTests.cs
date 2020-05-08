@@ -86,8 +86,9 @@ namespace HumanResourcesManager.Infrastructure.Tests.Commands.Handlers
 			await sut.Handle(model, default);
 
 			// Assert
-			userRepoMock.Verify(x => x.RegistrationAsync(It.Is<User>(a => a.UserName == model.UserName && 
-			                                                              a.Email == model.Email && a.EmployeeId == model.EmployeeId)), Times.Once);
+			userRepoMock.Verify(
+				x => x.RegistrationAsync(It.Is<User>(
+					a => a.UserName == model.UserName && a.Email == model.Email && a.EmployeeId == model.EmployeeId)), Times.Once);
 		}
 
 		[Theory]

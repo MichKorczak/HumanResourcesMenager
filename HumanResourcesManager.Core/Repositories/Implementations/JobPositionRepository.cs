@@ -10,12 +10,13 @@ namespace HumanResourcesManager.Core.Repositories.Implementations
 	{
 		private readonly HumanResourceContext context;
 
-		public JobPositionRepository(HumanResourceContext context) : base(context)
+		public JobPositionRepository(HumanResourceContext context)
+			: base(context)
 		{
 			this.context = context;
 		}
 
-		public async Task<JobPosition> GetJobPositionAsync(string jobPositionName) 
+		public async Task<JobPosition> GetJobPositionAsync(string jobPositionName)
 			=> await context.JobPositions.FirstOrDefaultAsync(x => x.PositionName == jobPositionName);
 
 		public async Task AddJobPositionAsync(JobPosition model) => await context.JobPositions.AddAsync(model);

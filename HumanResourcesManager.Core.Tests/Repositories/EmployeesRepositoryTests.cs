@@ -44,10 +44,9 @@ namespace HumanResourcesManager.Core.Tests.Repositories
 			result.Should().BeEquivalentTo(context.Employees);
 		}
 
-
 		[Fact]
 		public async Task When_Add_Employee_Async_Then_Add_Employee_To_Context()
-		{ 
+		{
 			// Arrange
 			var employee = fixture.Build<Employee>().Without(x => x.Positions).Without(x => x.ManagerEmployee).Create();
 

@@ -38,10 +38,11 @@ namespace HumanResourcesManager.Infrastructure.Tests.Commands.Handlers
 			await sut.Handle(model, default);
 
 			// Assert
-			employeeRepositoryMock.Verify(x 
-				=> x.AddEmployeeAsync(It.Is<Employee>(a => a.FirstName == model.FirstName 
-				                                           && a.LastName == model.LastName && a.Address == model.Address
-				                                           && a.DateOfBirth == model.DateOfBirth)), Times.Once);
+			employeeRepositoryMock.Verify(
+				x => x.AddEmployeeAsync(It.Is<Employee>(
+					a => a.FirstName == model.FirstName
+					     && a.LastName == model.LastName && a.Address == model.Address
+			             && a.DateOfBirth == model.DateOfBirth)), Times.Once);
 		}
 
 		[Theory]

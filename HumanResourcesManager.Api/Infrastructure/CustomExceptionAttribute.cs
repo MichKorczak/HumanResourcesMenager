@@ -1,12 +1,12 @@
-﻿using System;
-using System.Net;
-using System.Threading.Tasks;
-using HumanResourcesManager.Core.Exceptions;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-
-namespace HumanResourcesManager.Api.Infrastructure
+﻿namespace HumanResourcesManager.Api.Infrastructure
 {
+	using System;
+	using System.Net;
+	using System.Threading.Tasks;
+	using HumanResourcesManager.Core.Exceptions;
+	using Microsoft.AspNetCore.Http;
+	using Newtonsoft.Json;
+
 	public class CustomExceptionAttribute
 	{
 		private readonly RequestDelegate _next;
@@ -34,10 +34,10 @@ namespace HumanResourcesManager.Api.Infrastructure
 			{
 				case ErrorsMessage.RegistrationErrorMessage:
 					context.Response.ContentType = "application/json";
-					context.Response.StatusCode = (int) HttpStatusCode.BadRequest;
+					context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
 					var response =
-						JsonConvert.SerializeObject(new {context.Response.StatusCode, exception.Message});
+						JsonConvert.SerializeObject(new { context.Response.StatusCode, exception.Message });
 					await context.Response.WriteAsync(response);
 					break;
 				default:

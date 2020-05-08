@@ -1,14 +1,14 @@
 ﻿using System;
-using HumanResourcesManager.Infrastructure.Queries.Employee;
-using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using HumanResourcesManager.Api.Bus;
 using HumanResourcesManager.Infrastructure.Commands.Employee;
+using HumanResourcesManager.Infrastructure.Queries.Employee;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HumanResourcesManager.Api.Controllers
 {
-	[Route("api/employee")]
+	[Route("api/employees")]
 	[ApiController]
 	public class EmployeesController : Controller
 	{

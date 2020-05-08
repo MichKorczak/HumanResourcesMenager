@@ -30,12 +30,11 @@ namespace HumanResourcesManager.Infrastructure.Tests.Query.Handlers
 		public async Task When_Handling_Query_Then_Returns_Token_Model(LoginQueryModel model)
 		{
 			// Act
-			var response = await sut.Handle(model,default);
+			var response = await sut.Handle(model, default);
 
 			// Assert
 			response.Should().BeOfType<TokenModel>();
 		}
-
 
 		[Theory]
 		[AutoData]

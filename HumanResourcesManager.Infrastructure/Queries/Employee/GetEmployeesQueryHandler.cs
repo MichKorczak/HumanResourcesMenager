@@ -1,10 +1,10 @@
-﻿using HumanResourcesManager.Core.Dto;
-using MediatR;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using HumanResourcesManager.Core.Dto;
 using HumanResourcesManager.Core.Repositories.Abstract;
 using HumanResourcesManager.Infrastructure.Interfaces;
+using MediatR;
 
 namespace HumanResourcesManager.Infrastructure.Queries.Employee
 {

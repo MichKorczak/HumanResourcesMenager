@@ -27,7 +27,7 @@ namespace HumanResourcesManager.Api.Tests.Controllers
 		public async Task When_Registration_Then_Send_Registration_Command_Model_With_Bus(
 			RegistrationCommandModel model)
 		{
-			// Act 
+			// Act
 			await sut.Registration(model);
 
 			// Assert

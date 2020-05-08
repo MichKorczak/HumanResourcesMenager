@@ -18,7 +18,7 @@ namespace HumanResourcesManager.Infrastructure.Commands.User
 
 		public string Role { get; set; }
 
-		[Required] 
+		[Required]
 		public Guid EmployeeId { get; set; }
 	}
 }

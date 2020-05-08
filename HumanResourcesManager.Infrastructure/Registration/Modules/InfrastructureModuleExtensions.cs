@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace HumanResourcesManager.Infrastructure.Registration.Modules
 {
-	public static class InfrastructureModuleExtensions 
+	public static class InfrastructureModuleExtensions
 	{
 		public static void RegisterRepositories(this IServiceCollection services)
 		{

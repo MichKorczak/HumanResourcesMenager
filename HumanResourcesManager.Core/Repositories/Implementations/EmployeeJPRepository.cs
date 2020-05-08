@@ -9,7 +9,8 @@ namespace HumanResourcesManager.Core.Repositories.Implementations
 	{
 		private readonly HumanResourceContext context;
 
-		public EmployeeJPRepository(HumanResourceContext context) : base(context)
+		public EmployeeJPRepository(HumanResourceContext context)
+			: base(context)
 		{
 			this.context = context;
 		}

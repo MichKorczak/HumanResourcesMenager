@@ -2,12 +2,14 @@
 {
 	public class EmployeeJobPosition : Entity
 	{
-		protected EmployeeJobPosition() { }
-
 		public EmployeeJobPosition(JobPosition position, Employee employee)
 		{
 			Position = position;
 			Employee = employee;
+		}
+
+		protected EmployeeJobPosition()
+		{
 		}
 
 		public JobPosition Position { get; private set; }
