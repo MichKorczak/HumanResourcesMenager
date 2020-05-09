@@ -10,7 +10,6 @@ namespace HumanResourcesManager.Infrastructure.Mapper
 		public EmployeeProfile()
 		{
 			CreateMap<Employee, EmployeeDto>();
-			CreateMap<AddEmployeeCommandModel, Employee>();
 		}
 	}
 }

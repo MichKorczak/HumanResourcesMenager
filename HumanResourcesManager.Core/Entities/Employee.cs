@@ -24,6 +24,8 @@ namespace HumanResourcesManager.Core.Entities
 
 		public string Address { get; private set; }
 
+		public string MainRole { get; set; }
+
 		public int RoomNumber { get; set; }
 
 		public Employee ManagerEmployee { get; set; }

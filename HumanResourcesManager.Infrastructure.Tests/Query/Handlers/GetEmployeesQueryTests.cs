@@ -25,7 +25,8 @@ namespace HumanResourcesManager.Infrastructure.Tests.Query.Handlers
 		{
 			employeeRepositoryMock = new Mock<IEmployeesRepository>();
 			mapperMock = new Mock<IMapper>();
-			//System under test
+
+			// System under test
 			sut = new GetEmployeesQueryHandler(employeeRepositoryMock.Object, mapperMock.Object);
 			fixture = new Fixture();
 		}
@@ -38,17 +39,17 @@ namespace HumanResourcesManager.Infrastructure.Tests.Query.Handlers
 			await sut.Handle(model, default);
 
 			// Assert
-			employeeRepositoryMock.Verify(x => x.GetEmployesAsync(), Times.Once);
+			employeeRepositoryMock.Verify(x => x.GetEmployeesAsync(), Times.Once);
 		}
 
 		[Theory]
 		[AutoData]
 		public async Task When_Handling_Query_Then_Maps_Employees_To_EmployeeDtos(GetEmployeesQueryModel model)
 		{
-			// Arrange 
+			// Arrange
 			var employee = fixture.Build<Employee>().Without(x => x.Positions).Without(x => x.ManagerEmployee).Create();
-			var employees = new Employee[] { employee }; 
-			employeeRepositoryMock.Setup(x => x.GetEmployesAsync()).ReturnsAsync(employees);
+			var employees = new Employee[] { employee };
+			employeeRepositoryMock.Setup(x => x.GetEmployeesAsync()).ReturnsAsync(employees);
 
 			// Act
 			await sut.Handle(model, default);
@@ -61,11 +62,11 @@ namespace HumanResourcesManager.Infrastructure.Tests.Query.Handlers
 		[AutoData]
 		public async Task When_Handling_Query_Then_Returns_Mapped_EmployeeDtos(GetEmployeesQueryModel model, EmployeeDto[] employees)
 		{
-			// Arrange 
+			// Arrange
 			mapperMock.Setup(x => x.MapCollection<Employee, EmployeeDto>(It.IsAny<IEnumerable<Employee>>())).Returns(employees);
 
 			// Act
-			var result =  (await sut.Handle(model, default)).ToList();
+			var result = (await sut.Handle(model, default)).ToList();
 
 			// Assert
 			result.Should().NotBeNullOrEmpty();

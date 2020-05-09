@@ -1,18 +1,16 @@
-﻿using HumanResourcesManager.Core.Enums;
-using System;
-using HumanResourcesManager.Core.Entities;
+﻿using System;
 
 namespace HumanResourcesManager.Core.Dto
 {
 	public class EmployeeDto
 	{
-		public Guid Id { get; set; }		
+		public Guid Id { get; set; }
 
 		public string FirstName { get; set; }
 
 		public string LastName { get; set; }
 
-		public string Position { get; set; }
+		public string MainRole { get; set; }
 
 		public int RoomNumber { get; set; }
 

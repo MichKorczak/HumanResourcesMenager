@@ -37,6 +37,9 @@ namespace HumanResourcesManager.Core.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("MainRole")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid?>("ManagerEmployeeId")
                         .HasColumnType("uniqueidentifier");
 
@@ -74,7 +77,7 @@ namespace HumanResourcesManager.Core.Migrations
 
                     b.HasIndex("PositionId");
 
-                    b.ToTable("EmployeeJobPosition");
+                    b.ToTable("EmployeeJobPositions");
                 });
 
             modelBuilder.Entity("HumanResourcesManager.Core.Entities.JobPosition", b =>
@@ -88,7 +91,47 @@ namespace HumanResourcesManager.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("JobPosition");
+                    b.ToTable("JobPositions");
+                });
+
+            modelBuilder.Entity("HumanResourcesManager.Core.Entities.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ChangePasswordToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreationDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("EmployeeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("MainRole")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("PasswordHash")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("Salt")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("HumanResourcesManager.Core.Entities.Employee", b =>
@@ -107,6 +150,15 @@ namespace HumanResourcesManager.Core.Migrations
                     b.HasOne("HumanResourcesManager.Core.Entities.JobPosition", "Position")
                         .WithMany("EmployeeJobPositions")
                         .HasForeignKey("PositionId");
+                });
+
+            modelBuilder.Entity("HumanResourcesManager.Core.Entities.User", b =>
+                {
+                    b.HasOne("HumanResourcesManager.Core.Entities.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

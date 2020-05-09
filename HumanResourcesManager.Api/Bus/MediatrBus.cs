@@ -1,7 +1,6 @@
-﻿using MediatR;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using HumanResourcesManager.Api.Bus;
+using MediatR;
 
 namespace HumanResourcesManager.Api.Bus
 {
